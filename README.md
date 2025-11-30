@@ -12,7 +12,7 @@ Bu proje, temel bir e-ticaret yönetim sistemi için PostgreSQL veritabanı yap�
 
 ---
 
-## Tablolar ve İlişkiler
+##  🗂 Tablolar ve İlişkiler
 categories: Ürün kategorilerini tutar
 products: Ürün bilgileri, fiyat, stok vb. 
 customers: Müşteri bilgileri
@@ -22,7 +22,7 @@ order_items: Sipariş ürün detayları
 reviews: Ürün değerlendirmeleri
 product_price_logs: Ürün fiyat değişiklikleri logları
 
-**1 → Many (1-N) ilişkiler:**
+**🔗 1 → Many (1-N) ilişkiler:**
 -✔ Bir kategori birçok ürün içerir 
 -✔ Bir müşteri birden fazla sipariş verebilir
 -✔ Bir müşterinin birden fazla adresi olabilir
@@ -33,18 +33,18 @@ product_price_logs: Ürün fiyat değişiklikleri logları
 -✔ Bir ürün içinde birden fazla yorum bırakabilir 
 -✔ Bir ürün için birçok fiyat logu (price_logs) olabilir
 
-**Cascade Davranışları:** - `orders.customer_id` → ON DELETE CASCADE
-- `shipping_addresses.customer_id` → ON DELETE CASCADE
-- `order_items.order_id` → ON DELETE CASCADE 
+**⚠ Cascade Davranışları:** - `orders.customer_id` → ON DELETE CASCADE,
+- `shipping_addresses.customer_id` → ON DELETE CASCADE,
+- `order_items.order_id` → ON DELETE CASCADE,
 -- Bu sayede müşteri silinirse → gönderi adresi, sipariş ve order_items otomatik silinir.
 
-**SET NULL olanlar:** - `products.category_id` → kategori silinirse ürün NULL kategoriye düşer
-- `order_items.product_id` → ürün silinirse order_item ürün ID NULL olur 
+**SET NULL olanlar:** - `products.category_id` → kategori silinirse ürün NULL kategoriye düşer,
+- `order_items.product_id` → ürün silinirse order_item ürün ID NULL olur ,
 - `orders.shipping_address_id` → adres silinirse adres NULL olur
 
 ---
 
-## Fonksiyonlar
+## 🔧  Fonksiyonlar
 
 - `calculate_order_total(order_id)`: Siparişin toplam tutarını hesaplar.  
 - `customer_lifetime_value(customer_id)`: Müşterinin toplam harcamasını hesaplar (yalnızca teslim edilen siparişler).  
@@ -52,7 +52,7 @@ product_price_logs: Ürün fiyat değişiklikleri logları
 
 ---
 
-## Triggerlar
+##⚡  Triggerlar
 
 - **Stok Azaltma:** Sipariş oluşturulduğunda ürün stokunu otomatik düşürür.  
 - **Fiyat Değişikliği Loglama:** Ürün fiyatı değiştiğinde eski ve yeni fiyatları loglar.  
@@ -60,21 +60,21 @@ product_price_logs: Ürün fiyat değişiklikleri logları
 
 ---
 
-## Stored Procedure’ler
+## 🛠  Stored Procedure’ler
 
 - `sp_place_order(customer_id, product_id, quantity)`: Stok kontrolü yaparak yeni sipariş oluşturur.  
 - `sp_cancel_order(order_id)`: Siparişi iptal eder ve stokları geri yükler.  
 
 ---
 
-## View’lar
+## 📊  View’lar
 
 - `vw_category_sales`: Kategorilere göre satış istatistikleri.  
 - `vw_customer_order_summary`: Müşterilerin toplam sipariş sayısı, harcaması ve ortalama sepet tutarı.  
 
 ---
 
-## E-Ticaret Sipariş Akışı Süreci Sistem Nasıl İşliyor?
+##  📦 E-Ticaret Sipariş Akışı Süreci Sistem Nasıl İşliyor?
 
 1. **Sipariş Oluşturma Veri Akışı**
 Müşteri -> Sipariş Ver (sp_place_order) -> orders tablosu INSERT -> Trigger çalışır: reduce_stock -> products.stock -= qty -> Sipariş Hazırlanır -> Müşteri ürünü teslim alır -> review ekleyebilir
