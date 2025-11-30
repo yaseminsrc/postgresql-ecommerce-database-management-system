@@ -23,8 +23,8 @@ Bu proje, temel bir e-ticaret yönetim sistemi için PostgreSQL veritabanı yap�
 - **product_price_logs:** Ürün fiyat değişiklikleri logları
 
 **🔗 1 → Many (1-N) ilişkiler:**
--✔ Bir kategori birçok ürün içerir ,
--✔ Bir müşteri birden fazla sipariş verebilir,
+--**✔ Bir kategori birçok ürün içerir ,
+-- ✔ Bir müşteri birden fazla sipariş verebilir,
 -✔ Bir müşterinin birden fazla adresi olabilir
 -✔ Sipariş belirli bir adrese bağlıdır
 -✔ Bir ürün birçok sipariş satırında bulunabilir 
